@@ -8,10 +8,10 @@ interface TodoItem {
   isCompleted: boolean;
 }
 export const TodoItem = component$((props: TodoItem) => {
-  const { task, id } = props;
+  const { task, id, isCompleted } = props;
   return (
     <li class="flex items-center justify-between gap-4">
-      <p class="flex-1">{task}</p>
+      <p class={["flex-1", { "line-through": isCompleted }]}>{task}</p>
       <div class="flex items-center gap-2">
         <DeleteTodo id={id} />
         <CompleteTodo id={id} />
