@@ -8,8 +8,6 @@ import {
 } from "@builder.io/qwik-city";
 import { kv } from "@vercel/kv";
 import { CreateTodo } from "~/components/create-todo";
-import { DeleteTodo } from "~/components/delete-todo";
-import { EditTodo } from "~/components/edit-todo";
 import { TodoItem } from "~/components/todo-item";
 
 export type Todo = {
@@ -32,6 +30,21 @@ export const useCreateTodo = routeAction$(
   },
   zod$({
     task: z.string().nonempty("Task must not be empty"),
+  })
+);
+export const useDeleteTodo = routeAction$(
+  async ({ id }, { fail }) => {
+    const todos = await kv.lrange<Todo>("todos", 0, -1);
+    const indexToRemove = todos.findIndex((todo) => todo.id === id);
+    if (indexToRemove === -1) {
+      return fail(404, {
+        message: "Todo not found",
+      });
+    }
+    await kv.lrem("todos", 0, todos[indexToRemove]);
+  },
+  zod$({
+    id: z.string().nonempty("Todo id must not be empty"),
   })
 );
 export default component$(() => {
