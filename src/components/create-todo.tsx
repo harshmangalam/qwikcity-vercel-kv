@@ -4,13 +4,26 @@ import { useCreateTodo } from "~/routes";
 
 export const CreateTodo = component$(() => {
   const action = useCreateTodo();
+  console.log(action);
   return (
-    <Form action={action} class="flex gap-4 items-center">
-      <input
-        type="text"
-        placeholder="Type here"
-        class="input input-bordered w-full "
-      />
+    <Form action={action} class="flex gap-4 items-start">
+      <div class="w-full">
+        <input
+          type="text"
+          placeholder="Type here..."
+          class="input input-bordered w-full "
+          name="task"
+          autoFocus
+        />
+        {action.value?.fieldErrors?.task && (
+          <label class="label">
+            <span class="label-text text-error">
+              {action.value.fieldErrors.task[0]}
+            </span>
+          </label>
+        )}
+      </div>
+
       <button
         type="submit"
         class={["btn btn-square btn-primary", { loading: action.isRunning }]}
