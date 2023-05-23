@@ -87,11 +87,11 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Welcome to Qwik",
+  title: "Todo",
   meta: [
     {
       name: "description",
-      content: "Qwik site description",
+      content: "Qwikcity with Vercel KV",
     },
   ],
 };
