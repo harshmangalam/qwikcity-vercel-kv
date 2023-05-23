@@ -20,20 +20,21 @@ export const useTodos = routeLoader$(async () => {
   return todos;
 });
 export const useCreateTodo = routeAction$(
-  async ({ task }) => {
+  async ({ task }, { redirect }) => {
     const todo: Todo = {
       id: crypto.randomUUID(),
       task,
       isCompleted: false,
     };
     await kv.lpush("todos", todo);
+    redirect(303, "/");
   },
   zod$({
     task: z.string().nonempty("Task must not be empty"),
   })
 );
 export const useDeleteTodo = routeAction$(
-  async ({ id }, { fail }) => {
+  async ({ id }, { fail, redirect }) => {
     const todos = await kv.lrange<Todo>("todos", 0, -1);
     const indexToRemove = todos.findIndex((todo) => todo.id === id);
     if (indexToRemove === -1) {
@@ -42,6 +43,7 @@ export const useDeleteTodo = routeAction$(
       });
     }
     await kv.lrem("todos", 0, todos[indexToRemove]);
+    redirect(303, "/");
   },
   zod$({
     id: z.string().nonempty("Todo id must not be empty"),
