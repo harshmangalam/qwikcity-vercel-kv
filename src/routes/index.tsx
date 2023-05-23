@@ -1,9 +1,27 @@
 import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import {
+  type DocumentHead,
+  routeAction$,
+  z,
+  zod$,
+} from "@builder.io/qwik-city";
+import { kv } from "@vercel/kv";
 import { CreateTodo } from "~/components/create-todo";
 import { DeleteTodo } from "~/components/delete-todo";
 import { EditTodo } from "~/components/edit-todo";
 
+export const useCreateTodo = routeAction$(
+  async ({ task }) => {
+    const todo = {
+      task,
+      isCompleted: false,
+    };
+    await kv.lpush("todos", todo);
+  },
+  zod$({
+    task: z.string().nonempty("Task must not be empty"),
+  })
+);
 export default component$(() => {
   return (
     <div class="max-w-md mx-auto w-full py-6">

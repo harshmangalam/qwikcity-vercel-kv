@@ -1,14 +1,20 @@
 import { component$ } from "@builder.io/qwik";
+import { Form } from "@builder.io/qwik-city";
+import { useCreateTodo } from "~/routes";
 
 export const CreateTodo = component$(() => {
+  const action = useCreateTodo();
   return (
-    <form class="flex gap-4 items-center">
+    <Form action={action} class="flex gap-4 items-center">
       <input
         type="text"
         placeholder="Type here"
         class="input input-bordered w-full "
       />
-      <button type="submit" class="btn btn-square btn-primary">
+      <button
+        type="submit"
+        class={["btn btn-square btn-primary", { loading: action.isRunning }]}
+      >
         <svg
           fill="none"
           stroke="currentColor"
@@ -25,6 +31,6 @@ export const CreateTodo = component$(() => {
           ></path>
         </svg>
       </button>
-    </form>
+    </Form>
   );
 });
