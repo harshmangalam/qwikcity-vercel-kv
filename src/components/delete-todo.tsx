@@ -9,6 +9,7 @@ export const DeleteTodo = component$(({ id }: { id: string }) => {
       <input type="hidden" name="id" value={id} />
       <div class="tooltip" data-tip="Delete todo">
         <button
+          aria-label="Delete todo"
           class={[
             "btn btn-error btn-sm btn-circle",
             {

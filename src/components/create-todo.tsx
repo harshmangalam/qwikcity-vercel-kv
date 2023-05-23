@@ -24,6 +24,7 @@ export const CreateTodo = component$(() => {
       </div>
       <div class="tooltip" data-tip="Add todo">
         <button
+          aria-label="Add todo"
           type="submit"
           class={["btn btn-square btn-primary", { loading: action.isRunning }]}
         >

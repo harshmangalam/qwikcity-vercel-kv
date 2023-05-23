@@ -10,6 +10,7 @@ export const CompleteTodo = component$(
         <input type="hidden" name="id" value={id} />
         <div class="tooltip" data-tip={isCompleted ? "Undone" : "Done"}>
           <button
+            aria-label={isCompleted ? "Undone" : "Done"}
             class={[
               "btn btn-warning btn-sm btn-circle",
               { loading: action.isRunning },
