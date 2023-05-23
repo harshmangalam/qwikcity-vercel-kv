@@ -10,6 +10,7 @@ import { kv } from "@vercel/kv";
 import { CreateTodo } from "~/components/create-todo";
 import { DeleteTodo } from "~/components/delete-todo";
 import { EditTodo } from "~/components/edit-todo";
+import { TodoItem } from "~/components/todo-item";
 
 export type Todo = {
   id: string;
@@ -41,13 +42,7 @@ export default component$(() => {
 
       <ul class="flex flex-col space-y-2 mt-8">
         {todosLoader.value?.map((todo) => (
-          <li key={todo.id} class="flex items-center justify-between gap-4">
-            <p class="flex-1">{todo.task}</p>
-            <div class="flex items-center gap-2">
-              <DeleteTodo />
-              <EditTodo />
-            </div>
-          </li>
+          <TodoItem key={todo.id} {...todo} />
         ))}
       </ul>
     </div>
