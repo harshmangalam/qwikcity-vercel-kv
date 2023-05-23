@@ -74,7 +74,7 @@ export const useUpdateTodo = routeAction$(
 export default component$(() => {
   const todosLoader = useTodos();
   return (
-    <div class="max-w-md mx-auto w-full py-6">
+    <div class="max-w-md mx-auto w-full py-10">
       <CreateTodo />
 
       <ul class="flex flex-col space-y-2 mt-8">

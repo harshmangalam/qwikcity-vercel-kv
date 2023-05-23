@@ -14,7 +14,7 @@ export const TodoItem = component$((props: TodoItem) => {
       <p class={["flex-1", { "line-through": isCompleted }]}>{task}</p>
       <div class="flex items-center gap-2">
         <DeleteTodo id={id} />
-        <CompleteTodo id={id} />
+        <CompleteTodo id={id} isCompleted={isCompleted} />
       </div>
     </li>
   );
