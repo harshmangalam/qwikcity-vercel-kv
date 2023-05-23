@@ -42,7 +42,29 @@ export const useDeleteTodo = routeAction$(
         message: "Todo not found",
       });
     }
-    await kv.lrem("todos", 0, todos[indexToRemove]);
+    await kv.lrem("todos", 1, todos[indexToRemove]);
+    redirect(303, "/");
+  },
+  zod$({
+    id: z.string().nonempty("Todo id must not be empty"),
+  })
+);
+export const useUpdateTodo = routeAction$(
+  async ({ id }, { fail, redirect }) => {
+    const todos = await kv.lrange<Todo>("todos", 0, -1);
+
+    const index = todos.findIndex((todo) => todo.id === id);
+
+    if (index === -1) {
+      return fail(404, {
+        message: "Todo not found",
+      });
+    }
+    const updated = {
+      ...todos[index],
+      isCompleted: !todos[index].isCompleted,
+    };
+    await kv.lset("todos", index, updated);
     redirect(303, "/");
   },
   zod$({

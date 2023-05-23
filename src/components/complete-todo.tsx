@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 
-export const EditTodo = component$(() => {
+export const CompleteTodo = component$(() => {
   return (
     <form>
       <button class="btn btn-warning btn-sm btn-circle">

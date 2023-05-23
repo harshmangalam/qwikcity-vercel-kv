@@ -1,6 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { DeleteTodo } from "./delete-todo";
-import { EditTodo } from "./edit-todo";
+import { CompleteTodo } from "./complete-todo";
 
 interface TodoItem {
   id: string;
@@ -14,7 +14,7 @@ export const TodoItem = component$((props: TodoItem) => {
       <p class="flex-1">{task}</p>
       <div class="flex items-center gap-2">
         <DeleteTodo id={id} />
-        <EditTodo />
+        <CompleteTodo id={id} />
       </div>
     </li>
   );

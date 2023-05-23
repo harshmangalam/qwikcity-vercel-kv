@@ -4,7 +4,6 @@ import { useCreateTodo } from "~/routes";
 
 export const CreateTodo = component$(() => {
   const action = useCreateTodo();
-  console.log(action);
   return (
     <Form action={action} class="flex gap-4 items-start">
       <div class="w-full">
